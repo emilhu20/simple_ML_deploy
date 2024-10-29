@@ -1,7 +1,9 @@
 
 import mysql.connector
-from config import DB_CONFIG
+from config import DB_CONFIG, data_path
 from db.connection import create_connection
+from utils.data_loading import get_csv_data
+from db.queries import insert_query
 
 
 #------------SETUP DATABASE AND TABLE----------------
@@ -50,3 +52,19 @@ def create_table(sql_file_path):
     finally:
         cursor.close()
         connection.close()
+
+"""
+if __name__ == "__main__":
+    #create database and tables
+    create_database()
+    create_table("../sql/persons_table.sql")
+
+    #load data
+    data = get_csv_data(data_path)
+
+    #insert data into the table
+    #read the sql file and insert the data
+    insert_query("sql/insert_csv_file_manual.sql", data)
+
+
+"""
