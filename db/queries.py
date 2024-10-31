@@ -59,9 +59,16 @@ def fetch_query(query_path):
         query = file.read()
 
     try:
+        # Execute the query
         cursor.execute(query)
         results = cursor.fetchall()
-        return results
+
+        # Fetch column names from the cursor description
+        columns = [col[0] for col in cursor.description]
+
+        # Create a DataFrame using results and column names
+        df = pd.DataFrame(results, columns=columns)
+        return df
         
     except mysql.connector.Error as err:
             print(f"Error: {err}")
